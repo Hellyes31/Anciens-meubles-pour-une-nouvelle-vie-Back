@@ -2,13 +2,15 @@ package adawardrobe.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-public class Users {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     private Long id;
 
     @Column(nullable = false)
@@ -27,16 +29,16 @@ public class Users {
     private String role;
 
     @Column(nullable = true)
-    private Date created_at;
+    private Timestamp created_at;
 
     @Column(nullable = true)
-    private Date updated_at;
+    private Timestamp updated_at;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transactions> transactions;
+    private List<Transaction> transactions;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Furnitures> furnitures;
+    private List<Furniture> furnitures;
 
 
     public Long getId() {
@@ -87,35 +89,35 @@ public class Users {
         this.role = role;
     }
 
-    public Date getCreated_at() {
+    public Timestamp getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
 
-    public Date getUpdated_at() {
+    public Timestamp getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
 
-    public List<Transactions> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transactions> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-    public List<Furnitures> getFurnitures() {
+    public List<Furniture> getFurnitures() {
         return furnitures;
     }
 
-    public void setFurnitures(List<Furnitures> furnitures) {
+    public void setFurnitures(List<Furniture> furnitures) {
         this.furnitures = furnitures;
     }
 }
