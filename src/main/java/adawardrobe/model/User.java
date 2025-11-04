@@ -28,11 +28,26 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = true, insertable = false, updatable = false)
     private Timestamp created_at;
 
     @Column(nullable = true)
     private Timestamp updated_at;
+
+    // 👉 Cette méthode s’exécute automatiquement avant INSERT
+    @PrePersist
+    protected void onCreate() {
+        this.created_at = new Timestamp(System.currentTimeMillis());
+    }
+
+    // 👉 Celle-ci avant UPDATE (utile si tu veux suivre les modifs)
+    @PreUpdate
+    protected void onUpdate() {
+        this.updated_at = new Timestamp(System.currentTimeMillis());
+    }
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
@@ -87,6 +102,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Timestamp getCreated_at() {
