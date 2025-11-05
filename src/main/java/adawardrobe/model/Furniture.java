@@ -24,6 +24,24 @@ public class Furniture {
     )
     private Type type;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "color_id",
+            referencedColumnName = "id_color",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_furnitures_color")
+    )
+    private Color color;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "photo_id",
+            referencedColumnName = "id_photo",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_furnitures_photo")
+    )
+    private Photo photo;
+
     @Column(nullable = false)
     private String title;
 

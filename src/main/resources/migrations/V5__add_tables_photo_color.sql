@@ -1,0 +1,26 @@
+CREATE TABLE photos (
+    id_photo BIGSERIAL PRIMARY KEY,
+    photo VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE colors (
+    id_color BIGSERIAL PRIMARY KEY,
+    color VARCHAR(100) NOT NULL UNIQUE
+);
+
+ALTER TABLE furnitures
+ADD COLUMN color_id BIGINT;
+
+
+ALTER TABLE furnitures
+ADD CONSTRAINT fk_furnitures_color
+FOREIGN KEY (color_id) REFERENCES colors(id_color)
+ON UPDATE CASCADE ON DELETE RESTRICT;
+
+ALTER TABLE furnitures
+ADD COLUMN photo_id BIGINT;
+
+ALTER TABLE furnitures
+ADD CONSTRAINT fk_furnitures_photo
+FOREIGN KEY (photo_id) REFERENCES photos(id_photo)
+ON UPDATE CASCADE ON DELETE RESTRICT;
