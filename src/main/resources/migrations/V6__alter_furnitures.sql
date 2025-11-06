@@ -1,0 +1,6 @@
+ALTER TABLE furnitures
+    ALTER COLUMN type_id DROP NOT NULL,
+    ALTER COLUMN status_id DROP NOT NULL,
+    ALTER COLUMN seller_id DROP NOT NULL,
+    ALTER COLUMN color_id DROP NOT NULL,
+    ALTER COLUMN photo_id DROP NOT NULL;

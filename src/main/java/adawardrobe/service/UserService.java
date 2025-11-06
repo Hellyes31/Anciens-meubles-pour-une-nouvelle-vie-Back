@@ -47,7 +47,6 @@ public class UserService {
             existingUser.setMail(userDetails.getMail());
             existingUser.setPassword(userDetails.getPassword());
             existingUser.setCity(userDetails.getCity());
-            existingUser.setUpdated_at(userDetails.getUpdated_at());
 
             if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
                 String encoded = passwordEncoder.encode(userDetails.getPassword());

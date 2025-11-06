@@ -19,7 +19,7 @@ public class Furniture {
     @JoinColumn(
             name = "type_id",
             referencedColumnName = "id_type",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_furnitures_type")
     )
     private Type type;
@@ -28,7 +28,7 @@ public class Furniture {
     @JoinColumn(
             name = "color_id",
             referencedColumnName = "id_color",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_furnitures_color")
     )
     private Color color;
@@ -37,7 +37,7 @@ public class Furniture {
     @JoinColumn(
             name = "photo_id",
             referencedColumnName = "id_photo",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_furnitures_photo")
     )
     private Photo photo;
@@ -55,7 +55,7 @@ public class Furniture {
     @JoinColumn(
             name = "status_id",
             referencedColumnName = "id_status",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_furnitures_status")
     )
     private Status status;
@@ -64,16 +64,27 @@ public class Furniture {
     @JoinColumn(
             name = "seller_id",
             referencedColumnName = "id_user",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_furnitures_seller")
     )
     private User seller;
 
-    @Column(nullable = false)
+
+    @Column(nullable = true, insertable = false, updatable = false)
     private Timestamp created_at;
 
-    @Column
+    @Column(nullable = true)
     private Timestamp updated_at;
+
+    @PrePersist
+    protected void onCreate() {
+        this.created_at = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = new Timestamp(System.currentTimeMillis());
+    }
 
     @OneToMany(mappedBy = "furniture", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
