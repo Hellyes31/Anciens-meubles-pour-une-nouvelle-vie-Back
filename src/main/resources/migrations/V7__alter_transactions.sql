@@ -1,0 +1,4 @@
+ALTER TABLE transactions
+    ALTER COLUMN sold_at DROP NOT NULL,
+    ALTER COLUMN id_buyer DROP NOT NULL,
+    ALTER COLUMN id_furniture DROP NOT NULL;
