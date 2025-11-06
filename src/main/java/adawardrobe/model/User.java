@@ -38,13 +38,11 @@ public class User {
     @Column(nullable = true)
     private Timestamp updated_at;
 
-    // 👉 Cette méthode s’exécute automatiquement avant INSERT
     @PrePersist
     protected void onCreate() {
         this.created_at = new Timestamp(System.currentTimeMillis());
     }
 
-    // 👉 Celle-ci avant UPDATE (utile si tu veux suivre les modifs)
     @PreUpdate
     protected void onUpdate() {
         this.updated_at = new Timestamp(System.currentTimeMillis());

@@ -44,7 +44,6 @@ public class StatusController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // PUT update
     @PutMapping("/{id}")
     public ResponseEntity<Status> updateStatus(@PathVariable String id, @RequestBody Status statusDetails) {
         Optional<Status> updatedStatus = statusService.updateStatus(id, statusDetails);
@@ -55,7 +54,6 @@ public class StatusController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // DELETE
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStatus(@PathVariable String id) {
         boolean deleted = statusService.deleteStatus(id);

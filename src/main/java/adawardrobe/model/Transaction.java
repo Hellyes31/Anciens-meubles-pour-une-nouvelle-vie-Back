@@ -17,7 +17,7 @@ public class Transaction {
     @JoinColumn(
             name = "id_furniture",
             referencedColumnName = "id_furniture",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_transactions_furniture")
     )
     private Furniture furniture;
@@ -26,14 +26,18 @@ public class Transaction {
     @JoinColumn(
             name = "id_buyer",
             referencedColumnName = "id_user",
-            nullable = false,
+            nullable = true,
             foreignKey = @ForeignKey(name = "fk_transactions_buyer")
     )
     private User buyer;
 
-    @Column(name = "sold_at", nullable = false)
+    @Column(name = "sold_at", nullable = true)
     private Timestamp soldAt;
 
+    @PrePersist
+    protected void onCreate() {
+        this.soldAt = new Timestamp(System.currentTimeMillis());
+    }
 
     @Column(name = "sold_price", nullable = false)
     private Float soldPrice;
