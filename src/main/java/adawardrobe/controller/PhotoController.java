@@ -1,9 +1,8 @@
 package adawardrobe.controller;
 
 
-import adawardrobe.model.Color;
+
 import adawardrobe.model.Photo;
-import adawardrobe.service.ColorService;
 import adawardrobe.service.PhotoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
