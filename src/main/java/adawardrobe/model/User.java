@@ -1,6 +1,8 @@
 package adawardrobe.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,6 +20,10 @@ public class User {
 
     @Column(nullable = false)
     private String lastname;
+
+    @Pattern(regexp = "^[a-zA-Z0-9._-]{3,20}$", message = "Le nom d'utilisateur doit comporter 3 à 20 caractères alphanumériques")
+    @Column(nullable = false, unique = true)
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String mail;
@@ -54,6 +60,13 @@ public class User {
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Furniture> furnitures;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;
