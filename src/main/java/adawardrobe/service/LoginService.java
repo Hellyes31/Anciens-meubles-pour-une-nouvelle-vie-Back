@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
         }
         public User userAuthentification(String login, String password) {
             User user = userRepository.findByUsernameOrMail(login, login)
-                    .orElseThrow(() -> new RuntimeException("Nom d'utilisateur ou email introuvable !"));
+                    .orElseThrow(() -> new RuntimeException("Nom d'utilisateur/Email ou mot de passe incorrect !"));
             //if(!password.equals(volunteer.getPassword())){
             if (!passwordEncoder.matches(password, user.getPassword())) {
-                throw new RuntimeException("Mot de passe incorrect !");
+                throw new RuntimeException("Nom d'utilisateur/Email ou mot de passe incorrect !");
             } return user;
 
         }
