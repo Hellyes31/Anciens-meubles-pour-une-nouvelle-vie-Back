@@ -1,0 +1,15 @@
+services:
+  backend:
+    build:
+     context: .
+    container_name: Adawardrobe_back
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ../Anciens-meubles-pour-une-nouvelle-vie-Front/adawardrobe
+    container_name: Adawardrobe_front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
