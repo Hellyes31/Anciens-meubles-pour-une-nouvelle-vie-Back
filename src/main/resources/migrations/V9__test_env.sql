@@ -1,0 +1,1 @@
+INSERT INTO colors (color) VALUES ('Bleu'), ('Vert'), ('Rouge');
