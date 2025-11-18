@@ -1,15 +1,23 @@
 services:
   backend:
     build:
-     context: .
+      context: .
     container_name: Adawardrobe_back
     ports:
       - "8080:8080"
 
   frontend:
-    build: ../Anciens-meubles-pour-une-nouvelle-vie-Front/adawardrobe
+    build:
+      context: C:/Adawardrobe_front/Anciens-meubles-pour-une-nouvelle-vie-Front/adawardrobe
     container_name: Adawardrobe_front
     ports:
       - "3000:3000"
+    volumes:
+      - C:/Adawardrobe_front/Anciens-meubles-pour-une-nouvelle-vie-Front/adawardrobe:/usr/src/app:cached
+      - /usr/src/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
+    command: npm run dev
     depends_on:
       - backend
