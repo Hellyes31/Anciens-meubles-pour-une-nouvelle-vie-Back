@@ -2,9 +2,12 @@ package adawardrobe.controller;
 
 
 import adawardrobe.model.Furniture;
+import adawardrobe.model.User;
+import adawardrobe.repository.UserRepository;
 import adawardrobe.service.FurnitureService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +19,11 @@ import java.util.Optional;
 public class FurnitureController {
 
     private final FurnitureService furnitureService;
+    private final UserRepository userRepository;
 
-    public FurnitureController(FurnitureService furnitureService){
+    public FurnitureController(FurnitureService furnitureService, UserRepository userRepository) {
         this.furnitureService = furnitureService;
+        this.userRepository = userRepository;
     }
 
 
@@ -28,9 +33,15 @@ public class FurnitureController {
     }
 
     @PostMapping
-    public ResponseEntity<Furniture> createFurniture(@RequestBody Furniture furniture){
-        Furniture furnitureCreated = furnitureService.createFurniture(furniture);
-        return new ResponseEntity<>(furnitureCreated, HttpStatus.CREATED);
+    public Furniture createFurniture(@RequestBody Furniture furniture, Authentication authentication) {
+        String username = authentication.getName();
+
+        User seller = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+
+        furniture.setSeller(seller);
+
+        return furnitureService.createFurniture(furniture);
     }
 
     @GetMapping("/{id}")
