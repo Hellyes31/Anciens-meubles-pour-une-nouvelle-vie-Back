@@ -1,5 +1,7 @@
 package adawardrobe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -33,14 +35,18 @@ public class Furniture {
     )
     private Color color;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "photo_id",
-            referencedColumnName = "id_photo",
-            nullable = true,
-            foreignKey = @ForeignKey(name = "fk_furnitures_photo")
-    )
-    private Photo photo;
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    @OneToMany(mappedBy = "furniture", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Photo> photos;
+
+
 
     @Column(nullable = false)
     private String title;
@@ -87,6 +93,7 @@ public class Furniture {
     }
 
     @OneToMany(mappedBy = "furniture", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Transaction> transactions;
 
     public Long getId() {
@@ -169,4 +176,12 @@ public class Furniture {
         this.transactions = transactions;
     }
 
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 }
