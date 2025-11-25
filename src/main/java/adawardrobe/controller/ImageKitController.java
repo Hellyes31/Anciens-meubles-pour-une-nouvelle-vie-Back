@@ -17,7 +17,6 @@ public class ImageKitController {
 
     @GetMapping("/generate-auth-params")
     public ResponseEntity<Map<String, Object>> generateAuthParams() {
-        // ImageKit fournit une méthode pour créer signature/auth params côté serveur
         Map<String, String> authParams = imageKit.getAuthenticationParameters();
 
         Map<String, Object> response = new HashMap<>();
