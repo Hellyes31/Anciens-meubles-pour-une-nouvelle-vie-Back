@@ -1,5 +1,7 @@
 package adawardrobe.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -14,6 +16,7 @@ public class Transaction {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(
             name = "id_furniture",
             referencedColumnName = "id_furniture",

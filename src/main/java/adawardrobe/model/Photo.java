@@ -1,5 +1,6 @@
 package adawardrobe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,8 +17,17 @@ public class Photo {
     @Column(nullable = false)
     private String photo;
 
-    @OneToMany(mappedBy = "photo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Furniture> furnitures;
+    @ManyToOne
+    @JoinColumn(name = "furniture_id", referencedColumnName = "id_furniture")
+    private Furniture furniture;
+
+    public Furniture getFurniture() {
+        return furniture;
+    }
+
+    public void setFurniture(Furniture furniture) {
+        this.furniture = furniture;
+    }
 
     public Long getId() {
         return id;
@@ -35,11 +45,4 @@ public class Photo {
         this.photo = photo;
     }
 
-    public List<Furniture> getFurnitures() {
-        return furnitures;
-    }
-
-    public void setFurnitures(List<Furniture> furnitures) {
-        this.furnitures = furnitures;
-    }
 }
