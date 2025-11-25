@@ -1,5 +1,7 @@
 package adawardrobe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 
@@ -32,6 +34,7 @@ public class User {
     private String password;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
@@ -55,9 +58,13 @@ public class User {
     }
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("transactions-buyer")
+    @JsonIgnore
     private List<Transaction> transactions;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("furnitures-seller")
+    @JsonIgnore
     private List<Furniture> furnitures;
 
     public String getUsername() {

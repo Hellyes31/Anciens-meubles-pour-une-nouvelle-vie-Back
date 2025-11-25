@@ -1,6 +1,7 @@
 package adawardrobe.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class Status {
     private String status;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Furniture> furnitures;
 
     public Long getId() {

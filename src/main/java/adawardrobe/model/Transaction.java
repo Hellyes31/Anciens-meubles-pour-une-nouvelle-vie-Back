@@ -17,6 +17,7 @@ public class Transaction {
 
     @ManyToOne
     @JsonBackReference
+    @JsonIgnore
     @JoinColumn(
             name = "id_furniture",
             referencedColumnName = "id_furniture",
@@ -32,6 +33,8 @@ public class Transaction {
             nullable = true,
             foreignKey = @ForeignKey(name = "fk_transactions_buyer")
     )
+    @JsonBackReference("transactions-buyer")
+    @JsonIgnore
     private User buyer;
 
     @Column(name = "sold_at", nullable = true)

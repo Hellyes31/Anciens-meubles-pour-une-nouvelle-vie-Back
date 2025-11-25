@@ -1,5 +1,6 @@
 package adawardrobe.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -73,6 +74,7 @@ public class Furniture {
             nullable = true,
             foreignKey = @ForeignKey(name = "fk_furnitures_seller")
     )
+    @JsonBackReference("furnitures-seller")
     private User seller;
 
 
@@ -93,7 +95,6 @@ public class Furniture {
     }
 
     @OneToMany(mappedBy = "furniture", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Transaction> transactions;
 
     public Long getId() {

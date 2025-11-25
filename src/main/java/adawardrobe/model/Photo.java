@@ -18,6 +18,7 @@ public class Photo {
     private String photo;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "furniture_id", referencedColumnName = "id_furniture")
     private Furniture furniture;
 

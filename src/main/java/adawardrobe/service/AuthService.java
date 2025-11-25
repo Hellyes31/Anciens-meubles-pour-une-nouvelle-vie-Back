@@ -1,4 +1,5 @@
 package adawardrobe.service;
+
 import adawardrobe.model.Role;
 import adawardrobe.model.User;
 import adawardrobe.repository.RoleRepository;
@@ -43,9 +44,16 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Affectation du role
-        Role role = roleRepository.findByRoleName(roleName)
-                .orElseThrow(() -> new IllegalArgumentException("Role non trouvé : " + roleName));
-        user.setRole(role);
+        if (user.getRole() != null && user.getRole().getId() != null) {
+            Role role = roleRepository.findById(user.getRole().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Role non trouvé"));
+            user.setRole(role);
+        } else {
+
+            Role role = roleRepository.findByRoleName("ROLE_USER")
+                    .orElseThrow(() -> new IllegalArgumentException("Role USER non trouvé"));
+            user.setRole(role);
+        }
 
         return userRepository.save(user);
     }
