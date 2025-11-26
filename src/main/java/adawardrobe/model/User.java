@@ -34,7 +34,6 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
